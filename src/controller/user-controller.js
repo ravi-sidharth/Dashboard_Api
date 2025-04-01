@@ -138,6 +138,10 @@ const updateUserPassword = async(req,res) => {
     }
 }
 
+const dashboardReport = async(req,res) => {
+        qs
+}
+
 module.exports = {
     userSignup,
     userLogin,
