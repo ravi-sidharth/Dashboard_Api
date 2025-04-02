@@ -5,8 +5,8 @@ const router = express.Router()
 
 router.post('/signup',userSignup)
 router.post('/login',userLogin)
-router.post('logout/',userLogout)
+router.get('/logout',userLogout)
 router.post('/update-password',updateUserPassword)
-router.post('/dashboard',dashboardReport)
+router.get('/dashboard',dashboardReport)
 
 module.exports = router
