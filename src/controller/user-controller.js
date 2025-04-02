@@ -117,7 +117,7 @@ const updateUserPassword = async(req,res) => {
         const user = await User.findOne(
             {email}
         )
-        console.log(user,"user")
+    
         if (user.password !== oldPassword) {
             return res.status(429).json({
                 success:false,
@@ -148,7 +148,7 @@ const userLogout = async (req, res) => {
         const user = await User.findOne()
         
         user.logoutCount += 1
-        // user.loginCount -= 1
+        // user.loginCount  
         await user.save();
 
         res.status(200).json({
