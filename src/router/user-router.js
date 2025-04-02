@@ -9,6 +9,6 @@ router.post('/login',userLogin)
 router.post('/logout',userLogout)
 router.post('/update-password',updateUserPassword)
 router.get('/dashboard',validate,dashboardReport)
-router.post('/update-info',validate,updateInfo)
+router.put('/update-info',validate,updateInfo)
 
 module.exports = router
