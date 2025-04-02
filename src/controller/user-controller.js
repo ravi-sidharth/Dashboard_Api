@@ -148,7 +148,7 @@ const userLogout = async (req, res) => {
         const user = await User.findOne()
         
         user.logoutCount += 1
-        user.loginCount -= 1
+        // user.loginCount -= 1
         await user.save();
 
         res.status(200).json({
