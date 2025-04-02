@@ -30,7 +30,7 @@ const userSignup = async(req,res) => {
         if (user) {
             return res.status(401).json({
                 success:false,
-                message:'User is already exists, Please try again with another email or usernam!'
+                message:'User is already exists, Please try again with another email or username!'
             })
         }
 
@@ -182,7 +182,7 @@ const dashboardReport = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
-  
+
 
 module.exports = {
     userSignup,
