@@ -3,22 +3,22 @@ const jwt = require('jsonwebtoken')
 const validate = async(req, res, next) => {
     try{
         const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(" ")[1]
+        const token = authHeader && authHeader.split(" ")[1]
 
-    if (!token) {
-        return res.status(429).json({
-            success:'False',
-            message:'Login is required!'
-        })
-    }
-
-    jwt.verify(token,process.env.SECRET,(err,user)=>{
-        if (err) {
-            throw err
+        if (!token) {
+            return res.status(429).json({
+                success:'False',
+                message:'Login is required!'
+            })
         }
-        res.user = user 
-    })
-    next()
+
+        jwt.verify(token,process.env.SECRET,(err,user)=>{
+            if (err) {
+                throw err
+            }
+            res.user = user 
+        })
+        next()
 
     } catch(e) {
         res.status(500).json({
