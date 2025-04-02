@@ -37,10 +37,12 @@ const userSignup = async(req,res) => {
         user = new User({
             username,
             email,
-            password
+            password 
         })
+        user.signupCount += 1
         await user.save()
-
+        
+        console.log(user)
         res.status(201).json({
             success:true,
             message:'User signup Successfully!',
@@ -88,11 +90,13 @@ const userLogin = async(req,res) => {
 
         const payload = {
             _id :user._id,
-            username:user.name,
+            username:user.username,
             email:user.email,
         }
         const token = jwt.sign(payload,process.env.SECRET)
 
+        user.loginCount +=1
+        await user.save()
         res.status(200).json({
             success:true,
             message:'User logged in successfully!',
@@ -113,6 +117,7 @@ const updateUserPassword = async(req,res) => {
         const user = await User.findOne(
             {email}
         )
+        console.log(user,"user")
         if (user.password !== oldPassword) {
             return res.status(429).json({
                 success:false,
@@ -120,7 +125,7 @@ const updateUserPassword = async(req,res) => {
             })
         }
         await User.findByIdAndUpdate(
-            {_id:user._id},
+            user._id,
             {password:newPassword},
             {new:true}
         )
@@ -138,12 +143,52 @@ const updateUserPassword = async(req,res) => {
     }
 }
 
-const dashboardReport = async(req,res) => {
-        qs
-}
+const userLogout = async (req, res) => {
+    try {
+        const {email} = req.body
+        const user = await User.findOne({email})
+        
+        user.logoutCount += 1
+        user.loginCount -= 1
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: "User logged out successfully!",
+        });
+    } catch (e) {
+        res.status(500).json({
+            message: "Error occurred while logging out",
+            error: e.message,
+        });
+    }
+};
+
+const dashboardReport = async (req, res) => {
+    try {
+      const stats = await User.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalSignups: { $sum: "$signupCount" },
+            totalLogins: { $sum: "$loginCount" },
+            totalLogouts: { $sum: "$logoutCount" },
+          },
+        },
+      ]);
+      res.json(stats[0] || { totalSignups: 0, totalLogins: 0, totalLogouts: 0 });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
 
 module.exports = {
     userSignup,
     userLogin,
-    updateUserPassword
+    userLogout,
+    updateUserPassword,
+    dashboardReport
 }
+
+

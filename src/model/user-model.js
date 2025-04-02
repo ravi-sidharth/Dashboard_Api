@@ -14,7 +14,10 @@ const userSchema = new Schema({
     password: {
         type:String,
         required:true
-    }
+    },
+    loginCount: { type: Number, default: 0 },
+    signupCount: { type: Number, default: 0 },
+    logoutCount: { type: Number, default: 0 },
 },
 { timestamps:true}
 )
