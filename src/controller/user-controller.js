@@ -145,8 +145,7 @@ const updateUserPassword = async(req,res) => {
 
 const userLogout = async (req, res) => {
     try {
-        const {email} = req.body
-        const user = await User.findOne({email})
+        const user = await User.findOne()
         
         user.logoutCount += 1
         user.loginCount -= 1
