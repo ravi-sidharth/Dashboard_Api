@@ -183,13 +183,37 @@ const dashboardReport = async (req, res) => {
     }
   };
 
+const updateInfo = async (req,res) => {
+    const {username,email,newEmail,mobileNumber} = req.body
 
+    const user = await User.findOneAndUpdate(
+        {email},
+        {email:newEmail, username,mobileNumber},
+        {new:true}
+    )
+
+    if (!user) {
+        return res.status(404).json({
+            status:false,
+            message:'User not found!'
+        })
+    }
+
+    res.status(200).json({
+        status:false,
+        message:'User updated successfully!',
+        user
+    })
+
+
+}
 module.exports = {
     userSignup,
     userLogin,
     userLogout,
     updateUserPassword,
-    dashboardReport
+    dashboardReport,
+    updateInfo
 }
 
 
