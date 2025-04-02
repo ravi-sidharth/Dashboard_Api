@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const userSignup = async(req,res) => {
     try {
-        const {username,email,password} = req.body 
+        const {username,email,password,mobileNumber} = req.body 
         if (!username) {
             return res.status(401).json({
                 success:false,
@@ -37,7 +37,8 @@ const userSignup = async(req,res) => {
         user = new User({
             username,
             email,
-            password 
+            password,
+            mobileNumber
         })
         user.signupCount += 1
         await user.save()
@@ -58,7 +59,7 @@ const userSignup = async(req,res) => {
 
 const userLogin = async(req,res) => {
     try {
-        const {email,password} = req.body
+        const { email,password} = req.body
         if(!email) {
             return res.status(401).json({
                 success:false,
@@ -92,6 +93,7 @@ const userLogin = async(req,res) => {
             _id :user._id,
             username:user.username,
             email:user.email,
+            mobileNumber:user.mobileNumber
         }
         const token = jwt.sign(payload,process.env.SECRET)
 
