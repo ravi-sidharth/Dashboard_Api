@@ -8,7 +8,7 @@ router.post('/signup',userSignup)
 router.post('/login',userLogin)
 router.post('/logout',userLogout)
 router.post('/update-password',updateUserPassword)
-router.get('/dashboard',validate,dashboardReport)
-router.put('/update-info',validate,updateInfo)
+router.get('/dashboard',dashboardReport)
+router.put('/update-info',updateInfo)
 
 module.exports = router
