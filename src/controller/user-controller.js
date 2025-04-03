@@ -38,12 +38,11 @@ const userSignup = async(req,res) => {
             username,
             email,
             password,
-            mobileNumber
+            mobileNumber,
         })
         user.signupCount += 1
         await user.save()
-        
-        console.log(user)
+        console.log(user,"user")
         res.status(201).json({
             success:true,
             message:'User signup Successfully!',
@@ -93,7 +92,8 @@ const userLogin = async(req,res) => {
             _id :user._id,
             username:user.username,
             email:user.email,
-            mobileNumber:user.mobileNumber
+            mobileNumber:user.mobileNumber,
+            role:user.role
         }
         const token = jwt.sign(payload,process.env.SECRET)
 

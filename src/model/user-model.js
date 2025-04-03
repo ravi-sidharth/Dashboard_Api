@@ -22,6 +22,11 @@ const userSchema = new Schema({
     loginCount: { type: Number, default: 0 },
     signupCount: { type: Number, default: 0 },
     logoutCount: { type: Number, default: 0 },
+    role: {
+        type:String,
+        enum:["USER","ADMIN"],
+        default :'USER'
+    }
 },
 { timestamps:true}
 )
