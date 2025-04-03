@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/user',userRouter)
-app.use('/api/task',taskRouter)
+app.use('/api/product',taskRouter)
 
 app.listen(PORT,()=>console.log(`Server running at PORT:${PORT}`))
 
