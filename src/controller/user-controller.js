@@ -153,6 +153,7 @@ const userLogout = async (req, res) => {
         // user.loginCount  
         await user.save();
 
+
         res.status(200).json({
             success: true,
             message: "User logged out successfully!",
@@ -201,17 +202,17 @@ const updateInfo = async (req,res) => {
 
     const payload = {
         username:username || user.username ,
-        email:newEmail || user.email,
-        mobileNumber:mobileNumber || user.mobileNumber,
+        email: newEmail || user.email,
+        mobileNumber: mobileNumber || user.mobileNumber,
     }
     const token = jwt.sign(payload,process.env.SECRET)
 
     res.status(200).json({
         status:false,
         message:'User updated successfully!',
-        accessToken:token
+        accessToken:token,
+        user
     })
-
 
 }
 module.exports = {
